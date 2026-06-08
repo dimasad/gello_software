@@ -67,7 +67,7 @@ mkdir -p /tmp/franka_ros2 && cd /tmp/franka_ros2 && \
   rosdep update && \
   rosdep install --from-paths . --ignore-src -r -y && \
   rm -rf /var/lib/apt/lists/* && \
-  colcon build --install-base /opt/ros/humble/franka --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=off  && \
+  colcon build --packages-skip integration_launch_testing --install-base /opt/ros/humble/franka --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=off  && \
   cd .. && \ 
   rm -rf /tmp/franka_ros2 && \
   echo "source /opt/ros/humble/franka/setup.bash" >> ~/.bashrc && \

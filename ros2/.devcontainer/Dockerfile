@@ -49,9 +49,10 @@ RUN /bin/bash -c "source /opt/ros/humble/setup.bash && \
 
 # Install libfranka, franka_ros2 and franka_description
 # Note: The versions need to be set according to your robot's system version
-# https://frankarobotics.github.io/docs/compatibility.html
-ARG LIBFRANKA_VERSION=0.18.2
-ARG FRANKA_ROS2_VERSION=v2.1.0
+# For FR3 robot server v9, use: libfranka ≥0.15.0, <0.18.0 and franka_ros2 ≥2.0.2, <3.0.0
+# https://franka.de/fr3-compatibility-matrix
+ARG LIBFRANKA_VERSION=0.17.0
+ARG FRANKA_ROS2_VERSION=v2.3.0
 ARG FRANKA_DESCRIPTION_VERSION=1.3.0
 
 RUN /bin/bash -c 'source /opt/ros/humble/setup.bash && \
@@ -63,7 +64,8 @@ mkdir -p /tmp/franka_ros2 && cd /tmp/franka_ros2 && \
   rosdep update && \
   rosdep install --from-paths . --ignore-src -r -y && \
   rm -rf /var/lib/apt/lists/* && \
-  colcon build --install-base /opt/ros/humble/franka --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=off  && \
+  colcon build --install-base /opt/ros/humble/franka --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=off -DSKIP_INTEGRATION_LAUNCH_TESTING=ON && \
+  if [ ! -d "/opt/ros/humble/franka/lib" ]; then echo "ERROR: Build failed - no packages installed at /opt/ros/humble/franka"; exit 1; fi && \
   cd .. && \ 
   rm -rf /tmp/franka_ros2 && \
   echo "source /opt/ros/humble/franka/setup.bash" >> ~/.bashrc && \

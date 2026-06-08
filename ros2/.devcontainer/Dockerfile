@@ -51,6 +51,8 @@ RUN /bin/bash -c "source /opt/ros/humble/setup.bash && \
 # Note: The versions need to be set according to your robot's system version
 # For FR3 robot server v9, use: libfranka ≥0.15.0, <0.18.0 and franka_ros2 ≥2.0.2, <3.0.0
 # https://franka.de/fr3-compatibility-matrix
+# If franka_ros2 compilation fails with missing controller_interface/helpers.hpp (issue #160),
+# see https://github.com/frankarobotics/franka_ros2/issues/160 for workaround options.
 ARG LIBFRANKA_VERSION=0.17.0
 ARG FRANKA_ROS2_VERSION=v2.3.0
 ARG FRANKA_DESCRIPTION_VERSION=1.3.0

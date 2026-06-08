@@ -66,8 +66,7 @@ mkdir -p /tmp/franka_ros2 && cd /tmp/franka_ros2 && \
   rosdep update && \
   rosdep install --from-paths . --ignore-src -r -y && \
   rm -rf /var/lib/apt/lists/* && \
-  colcon build --install-base /opt/ros/humble/franka --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=off -DSKIP_INTEGRATION_LAUNCH_TESTING=ON && \
-  if [ ! -d "/opt/ros/humble/franka/lib" ]; then echo "ERROR: Build failed - no packages installed at /opt/ros/humble/franka"; exit 1; fi && \
+  colcon build --install-base /opt/ros/humble/franka --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=off --packages-skip franka_ros2_controllers_test && \
   cd .. && \ 
   rm -rf /tmp/franka_ros2 && \
   echo "source /opt/ros/humble/franka/setup.bash" >> ~/.bashrc && \

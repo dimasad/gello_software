@@ -1,6 +1,14 @@
 services:
   gello-ros2:
-    build: .
+    build:
+      context: .
+      # Choose versions of libfranka, franka_ros2 and franka_description
+      # Note: The versions need to be set according to your robot's system version
+      # https://franka.de/fr3-compatibility-matrix
+      args:
+        LIBFRANKA_VERSION: ${LIBFRANKA_VERSION:-0.18.0}
+        FRANKA_ROS2_VERSION: ${FRANKA_ROS2_VERSION:-v2.1.0}
+        FRANKA_DESCRIPTION_VERSION: ${FRANKA_DESCRIPTION_VERSION:-1.3.0}
     privileged: true
     restart: no
     network_mode: host

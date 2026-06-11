@@ -1,6 +1,9 @@
 # keep each top level section alphabetical
 # keep each item within the sections alphabetical
 
+# Docker Compose environment
+ros2/.devcontainer/.env
+
 # large files
 *.png
 *.gif

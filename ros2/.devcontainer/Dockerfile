@@ -10,6 +10,9 @@ RUN apt-get update && apt-get install -y \
   libpoco-dev \
   ros-humble-pinocchio \
   ros-humble-rmw-cyclonedds-cpp \
+  # Install missing franka_ros2 build dependencies (workaround franka_ros2 issue 160)
+  ros-humble-controller-interface \
+  ros-humble-hardware-interface \
   # Install ros packages
   python3-colcon-common-extensions \
   python3-colcon-mixin \
@@ -49,10 +52,11 @@ RUN /bin/bash -c "source /opt/ros/humble/setup.bash && \
 
 # Install libfranka, franka_ros2 and franka_description
 # Note: The versions need to be set according to your robot's system version
-# https://frankarobotics.github.io/docs/compatibility.html
-ARG LIBFRANKA_VERSION=0.18.2
-ARG FRANKA_ROS2_VERSION=v2.1.0
-ARG FRANKA_DESCRIPTION_VERSION=1.3.0
+# https://franka.de/fr3-compatibility-matrix
+# Adjust these parameters in the docker-compose.yml or in a .env file
+ARG LIBFRANKA_VERSION
+ARG FRANKA_ROS2_VERSION
+ARG FRANKA_DESCRIPTION_VERSION
 
 RUN /bin/bash -c 'source /opt/ros/humble/setup.bash && \
 mkdir -p /tmp/franka_ros2 && cd /tmp/franka_ros2 && \
